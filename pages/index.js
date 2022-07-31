@@ -12,7 +12,7 @@ export default function HomePage({ propertyForRent, propertyForSale }) {
   const router = useRouter();
 
   return (
-    <Layout title='Real Estate | Home'>
+    <Layout title='BHRP | Home'>
       <div className={styles.wrapper}>
         <Hero
           title='The first CRYPTO rental platform in NZ'

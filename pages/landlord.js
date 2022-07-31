@@ -12,7 +12,7 @@ export default function LandlordPage() {
   const router = useRouter();
 
   return (
-    <Layout title='Real Estate | Home'>
+    <Layout title='BHRP | Home'>
       <div className={styles.wrapper}>
          
         <Container className={styles.properties}>

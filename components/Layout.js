@@ -22,7 +22,7 @@ export default function Layout({ title, description, keywords, children }) {
 }
 
 Layout.defaultProps = {
-  title: 'Real Estate Properties in the UAE',
-  description: 'Find, Buy & rent houses in the UAE',
-  keywords: 'real estate, dubai, rent houses, buy houses',
+  title: 'BHRP - Blockchain Housing Rental Platform',
+  description: 'The first CRYPTO rental platform in NZ',
+  keywords: 'crypto, rent houses, nz',
 };

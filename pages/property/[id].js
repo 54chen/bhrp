@@ -20,7 +20,7 @@ export default function SingleProperty({
   },
 }) {
   return (
-    <Layout title={`${rooms}Bedroom | Real Estate`}>
+    <Layout title={`${rooms}Bedroom | BHRP`}>
       <section className={styles.singleProperty}>
         <Container fluid>{/* image: use carousel slider */}</Container>
 
