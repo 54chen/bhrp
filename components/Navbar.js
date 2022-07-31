@@ -5,24 +5,10 @@ import styles from '@/styles/Navbar.module.css';
 import { useWeb3 } from '../contexts/Web3Context';
 import React, { useEffect, useState } from 'react';
 import {
-  Heading,
-  Box,
-  Flex,
-  Image,
-  ListItem,
-  ListIcon,
-  List,
-  IconButton,
   useDisclosure,
-  Drawer,
-  DrawerOverlay,
-  DrawerContent,
-  DrawerBody,
-  DrawerCloseButton,
-  ButtonGroup,
-  ButtonProps,
-  DrawerFooter,
+  ButtonGroup, 
 } from '@chakra-ui/react';
+import Davatar from '@davatar/react';
 
 export default function Header() {
   return (
@@ -72,19 +58,7 @@ function ConnectionButton(props) {
     disconnectWallet,
     isConnected,
     bankBalance,
-    loadBankBalance,
-  } = useWeb3();
-  const {
-    isOpen: balanceModalIsOpen,
-    onOpen: onBalanceModalOpen,
-    onClose: onBalanceModalClose,
-  } = useDisclosure();
-
-  useEffect(() => {
-    if (isConnected && (bankBalance == null)) {
-      loadBankBalance();
-    }
-  });
+  } = useWeb3(); 
 
   const compactFormatter = Intl.NumberFormat('en', { notation: 'compact' });
 
@@ -95,7 +69,8 @@ function ConnectionButton(props) {
       );
     }
     if (walletAddress) {
-      onBalanceModalOpen();
+      //onBalanceModalOpen();
+      disconnectWallet();
     } else {
       connectWallet();
     }
@@ -106,20 +81,14 @@ function ConnectionButton(props) {
       return 'Connect Wallet';
     }
     return (
-      <Davatar size={24} address={walletAddress || ""} />
+      <div>{ensName || (walletAddress ? (walletAddress.substr(0, 4) + ".." + walletAddress.substr(-3)) : null) || "Connect Wallet"}</div>
     )
   }
 
   return (
     <>
-  
       <ButtonGroup size={props.size} isAttached onClick={handleClick}>
-        {bankBalance !== null && (
-          <Button bg="black" color="white">
-            {compactFormatter.format(bankBalance)} BANK
-          </Button>
-        )}
-        <Button title={ensName || (walletAddress ? (walletAddress.substr(0, 4) + ".." + walletAddress.substr(-3)) : null) || "Connect Wallet"}>{buttonText()}</Button>
+        <Button bg="black" color="white" title={ensName || (walletAddress ? (walletAddress.substr(0, 4) + ".." + walletAddress.substr(-3)) : null) || "Connect Wallet"}>{buttonText()}</Button>
       </ButtonGroup>
     </>
   );

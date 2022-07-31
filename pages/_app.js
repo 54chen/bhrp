@@ -5,7 +5,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '@/styles/globals.css';
 import { Web3Provider } from '../contexts/Web3Context';
 
-
 function MyApp({ Component, pageProps }) {
   NProgress.configure({ showSpinner: false });
 
@@ -18,8 +17,8 @@ function MyApp({ Component, pageProps }) {
   });
 
   return (
-    <>      
-    <Web3Provider>
+
+    <Web3Provider>      
       <Head>
         <link
           rel='stylesheet'
@@ -29,9 +28,9 @@ function MyApp({ Component, pageProps }) {
           referrerPolicy='no-referrer'
         />
       </Head>
-      <Component {...pageProps} />
+        <Component {...pageProps} />
     </Web3Provider>
-    </>
+
   );
 }
 

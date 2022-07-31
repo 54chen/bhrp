@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@chakra-ui/react": "^2.2.4",
+    "@davatar/react": "^1.10.4",
     "@walletconnect/web3-provider": "^1.7.8",
     "axios": "^0.24.0",
     "bootstrap": "^5.1.3",

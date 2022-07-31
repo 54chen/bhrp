@@ -15,14 +15,13 @@ import * as libWeb3 from '../lib/web3';
 //   loadBankBalance: () => void;
 // }
 
-const Web3Context = createContext();
+const Web3Context = createContext(undefined);
 
 function getInitialState() {
   return {
     walletAddress: libWeb3.getWalletAddress(),
     ensName: libWeb3.getENSName(),
     hasWeb3: libWeb3.hasWeb3(),
-    bankBalance: null,
   };
 }
 
@@ -59,17 +58,10 @@ export function Web3Provider({ children }) {
     await libWeb3.disconnectWallet();
     setState(getInitialState());
   }
-
-  async function loadBankBalance() {
-    const balance = await libWeb3.getBankBalance();
-    console.log('loadBankBalance', balance);
-    setState({ ...state, bankBalance: balance });
-  }
-
+ 
   const value = {
     connectWallet,
     disconnectWallet,
-    loadBankBalance,
     isConnected: Boolean(state.walletAddress),
     ...state,
   };
