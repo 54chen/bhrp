@@ -1,0 +1,28 @@
+.recent {
+  cursor: pointer;
+}
+
+.textPro {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+  margin-bottom: 15px !important;
+  color: #a4aecb;
+}
+
+/* Cards */
+.cFooter {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cFooter h6 {
+  font-weight: bold;
+  font-size: 20px;
+  color: var(--green-color);
+}
+
+/* Search in pages */
+.bg {
+  background-color: #f3f5f8;
+}

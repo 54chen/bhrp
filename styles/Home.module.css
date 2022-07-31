@@ -1,0 +1,7 @@
+/* .wrapper {
+  position: relative;
+} */
+
+.properties {
+  padding: var(--padding) !important;
+}

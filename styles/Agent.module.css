@@ -1,0 +1,8 @@
+.agent img {
+  border-radius: 50px !important;
+  border: 1px solid var(--green-color) !important;
+}
+
+.agent {
+  text-align: center;
+}

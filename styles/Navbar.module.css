@@ -1,0 +1,11 @@
+.home {
+  font-size: 1.5rem;
+  color: var(--blue-color);
+  font-weight: bold;
+}
+
+.home svg {
+  font-size: 2.2rem;
+  color: var(--green-color);
+  margin-top: -6px;
+}
