@@ -10,7 +10,7 @@ export default function Header() {
     <Navbar collapseOnSelect expand='md' className='shadow-sm bg-white'>
       <Container>
         <Link href='/'>
-          <a className='me-4' className={styles.home}>
+          <a className={styles.home}>
             <BiHome />
             {'  '}
             BHRP - Blockchain Housing Rental Platform
