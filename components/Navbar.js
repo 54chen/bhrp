@@ -69,7 +69,6 @@ function ConnectionButton(props) {
       );
     }
     if (walletAddress) {
-      //onBalanceModalOpen();
       disconnectWallet();
     } else {
       connectWallet();

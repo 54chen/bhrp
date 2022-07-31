@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { FaBitcoin } from 'react-icons/fa';
+import { FaBitcoin,FaFacebookMessenger } from 'react-icons/fa';
 import { GoVerified, GoUnverified } from 'react-icons/go';
 import { Button } from 'react-bootstrap';
 import styles from '@/styles/Agent.module.css';
@@ -19,7 +19,7 @@ export default function AgentInfo({
       <div className={styles.agent}>
         <Image src={`/images/agent.png`} width={80} height={80} />
       </div>
-
+ 
       <div className='text-center'>
         {/*<h4 className='fs-5 text-se'>
           {agency}{' '}
@@ -28,9 +28,11 @@ export default function AgentInfo({
           ) : (
             <GoUnverified className='text-danger' />
           )}{' '}
-          </h4>*/}
-        <p className='fw-bold'>Call: {phoneNumber}</p>
-
+          </h4>
+          <p className='fw-bold'>Call: {phoneNumber}</p>
+          */}
+       <a href='#'><p className='fw-bold'><FaFacebookMessenger className='me-2' />
+            Send message by Blockchain</p></a> 
         <div className='d-grid gap-2'>
           <Button variant='primary'>
             <FaBitcoin className='me-2' />

@@ -14,10 +14,7 @@ export default function LandlordPage() {
   return (
     <Layout title='Real Estate | Home'>
       <div className={styles.wrapper}>
-        <Hero
-          title='The first CRYPTO housing rental platform in NZ'
-          info='Find Your Dream House Easily and Quickly.'
-        />
+         
         <Container className={styles.properties}>
            TBD
         </Container>
