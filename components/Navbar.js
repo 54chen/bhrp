@@ -1,14 +1,9 @@
-import { Navbar, Container, Nav, Button } from 'react-bootstrap';
+import { Navbar, Container, Nav, Button, ButtonGroup } from 'react-bootstrap';
 import { BiHome } from 'react-icons/bi';
 import Link from 'next/link';
 import styles from '@/styles/Navbar.module.css';
 import { useWeb3 } from '../contexts/Web3Context';
 import React, { useEffect, useState } from 'react';
-import {
-  useDisclosure,
-  ButtonGroup, 
-} from '@chakra-ui/react';
-import Davatar from '@davatar/react';
 
 export default function Header() {
   return (
@@ -86,7 +81,7 @@ function ConnectionButton(props) {
 
   return (
     <>
-      <ButtonGroup size={props.size} isAttached onClick={handleClick}>
+      <ButtonGroup size={props.size} onClick={handleClick}>
         <Button bg="black" color="white" title={ensName || (walletAddress ? (walletAddress.substr(0, 4) + ".." + walletAddress.substr(-3)) : null) || "Connect Wallet"}>{buttonText()}</Button>
       </ButtonGroup>
     </>
