@@ -30,7 +30,7 @@ export default function Landlord() {
     setValidated(true);
   };
 
-  function handleClick() {
+  function handleWeb3Click() {
     if (!hasWeb3) {
       alert(
         'Please use a Web3 compatible browser or extension, such as MetaMask',
@@ -49,7 +49,7 @@ export default function Landlord() {
     <Form noValidate validated={validated} onSubmit={handleSubmit} className='bg-white p-4 shadow-sm pb-5'>
               {filterData.map((filter) => (
                 (filter.queryName != "sort" && filter.queryName != "maxPrice") &&
-      <Row>
+      <Row key={filter.queryName+"_row"}>
           <Col>
             <Form.Group key={filter.queryName}>
               <Form.Label className='mt-2 mb-2 fw-bold'>
@@ -94,9 +94,9 @@ export default function Landlord() {
       <Row>
       <Form.Group key="wallet">
             <Form.Label htmlFor="wallet-input">
-            Crypto Wallet Address 
+            Crypto Wallet Address  
             </Form.Label>
-            <Form.Control  onClick={handleClick} readOnly required type='input' value={ensName || walletAddress || ""} id='wallet-input' aria-describedby='wallet-help'></Form.Control>
+            <Form.Control  onClick={handleWeb3Click} readOnly required type='input' value={ensName || walletAddress || ""} id='wallet-input' aria-describedby='wallet-help'></Form.Control>
             <Form.Text id="wallet-help" muted>{!walletAddress ? 'Please Login with your WEB3 wallet in advance.':'GM, frens!'}</Form.Text>
             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           </Form.Group>
