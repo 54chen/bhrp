@@ -6,9 +6,19 @@ import Layout from './Layout';
 import { filterData, getFilterValues } from '@/utils/filterData';
 import { baseUrl, fetchApi } from '@/utils/fetchApi';
 import styles from '@/styles/Search.module.css';
+import { useWeb3 } from '../contexts/Web3Context';
 
 export default function Landlord() {
   const [validated, setValidated] = useState(false);
+  const {
+    hasWeb3,
+    walletAddress,
+    ensName,
+    connectWallet,
+    disconnectWallet,
+    isConnected,
+    bankBalance,
+  } = useWeb3(); 
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
@@ -20,7 +30,19 @@ export default function Landlord() {
     setValidated(true);
   };
 
-  
+  function handleClick() {
+    if (!hasWeb3) {
+      alert(
+        'Please use a Web3 compatible browser or extension, such as MetaMask',
+      );
+    }
+    if (walletAddress) {
+      disconnectWallet();
+    } else {
+      connectWallet();
+    }
+  }
+
   return (
     <Row>
     <Col xs={12} md={8}>
@@ -68,6 +90,17 @@ export default function Landlord() {
             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           </Form.Group>
         </Col>
+      </Row>
+      <Row>
+      <Form.Group key="wallet">
+            <Form.Label htmlFor="wallet-input">
+            Crypto Wallet Address 
+            </Form.Label>
+            <Form.Control  onClick={handleClick} readOnly required type='input' value={ensName || walletAddress || ""} id='wallet-input' aria-describedby='wallet-help'></Form.Control>
+            <Form.Text id="wallet-help" muted>{!walletAddress ? 'Please Login with your WEB3 wallet in advance.':'GM, frens!'}</Form.Text>
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+          </Form.Group>
+
       </Row>
       <Row>
       <Button type="submit">Submit form</Button>
