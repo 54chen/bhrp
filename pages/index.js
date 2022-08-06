@@ -52,14 +52,9 @@ export async function getStaticProps() {
     `${baseUrl}/properties/list?locationExternalIDs=5002&purpose=for-rent&hitsPerPage=3`
   );
 
-  const propertyForSale = await fetchApi(
-    `${baseUrl}/properties/list?locationExternalIDs=5002&purpose=for-sale&hitsPerPage=3`
-  );
-
   return {
     props: {
       propertyForRent: propertyForRent?.hits,
-      propertyForSale: propertyForSale?.hits,
     },
   };
 }
