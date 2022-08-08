@@ -51,7 +51,7 @@ export default function SearchFilters() {
     <Form className='bg-white p-4 shadow-sm pb-5'>
       <Row>
         {filters.map((filter) => (
-          <Col sm={4} md={6} lg={4}>
+          <Col sm={4} md={6} lg={4} key={filter.queryName+"_col"}>
             <Form.Group key={filter.queryName}>
               <Form.Label className='mt-2 mb-2 fw-bold'>
                 {filter.placeholder}

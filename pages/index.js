@@ -28,9 +28,7 @@ export default function HomePage({ propertyForRent, propertyForSale }) {
               <RecentProperty key={property.id} property={property} />
             ))}
 
-            {propertyForSale.map((property) => (
-              <RecentProperty key={property.id} property={property} />
-            ))}
+
           </Row>
 
           <div className='text-center mt-4 mb-4'>
