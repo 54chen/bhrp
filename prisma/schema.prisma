@@ -1,0 +1,19 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model house {
+  id     Int    @id @default(autoincrement()) @db.UnsignedInt
+  room   Int    @default(0) @db.UnsignedSmallInt
+  bath   Int    @default(0) @db.UnsignedSmallInt
+  type   Int    @default(0) @db.UnsignedTinyInt
+  price  Int    @default(0) @db.UnsignedInt
+  desc   String @default("") @db.VarChar(250)
+  wallet String @default("") @db.VarChar(100)
+  img    String @default("") @db.VarChar(200)
+}

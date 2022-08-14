@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@davatar/react": "^1.10.4",
+    "@prisma/client": "^4.2.1",
     "@walletconnect/web3-provider": "^1.7.8",
     "aws-sdk": "^2.1190.0",
     "axios": "^0.24.0",
@@ -22,5 +24,8 @@
     "react-icons": "^4.3.1",
     "web3": "^1.7.4",
     "web3modal": "^1.9.8"
+  },
+  "devDependencies": {
+    "prisma": "^4.2.1"
   }
 }

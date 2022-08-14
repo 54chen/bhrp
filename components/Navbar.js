@@ -4,8 +4,11 @@ import Link from 'next/link';
 import styles from '@/styles/Navbar.module.css';
 import { useWeb3 } from '../contexts/Web3Context';
 import React, { useEffect, useState } from 'react';
+import Davatar from '@davatar/react';
+
 
 export default function Header() {
+  
   return (
     <Navbar collapseOnSelect expand='md' className='shadow-sm bg-white'>
       <Container>
@@ -45,6 +48,15 @@ export default function Header() {
 
 
 function ConnectionButton(props) {
+  const [msg, setMsg] = useState('Login');
+  useEffect(() => {
+    if (!walletAddress) {
+      setMsg('Connect Wallet');
+    }
+    const m = ensName || (walletAddress ? (walletAddress.substr(0, 4) + ".." + walletAddress.substr(-3)) : null) || "Connect Wallet";
+    setMsg (m)
+    , []});
+
   const {
     hasWeb3,
     walletAddress,
@@ -70,19 +82,10 @@ function ConnectionButton(props) {
     }
   }
 
-  let buttonText = () => {
-    if (!walletAddress) {
-      return 'Connect Wallet';
-    }
-    return (
-      <div>{ensName || (walletAddress ? (walletAddress.substr(0, 4) + ".." + walletAddress.substr(-3)) : null) || "Connect Wallet"}</div>
-    )
-  }
-
   return (
     <>
       <ButtonGroup size={props.size} onClick={handleClick}>
-        <Button bg="black" color="white" title={ensName || (walletAddress ? (walletAddress.substr(0, 4) + ".." + walletAddress.substr(-3)) : null) || "Connect Wallet"}>{buttonText()}</Button>
+        <Button bg="black" color="white">{msg}</Button>
       </ButtonGroup>
     </>
   );

@@ -1,6 +1,6 @@
-import { Container, Row, Col, Form, Group, Label, Button } from 'react-bootstrap';
+import { Container, Row, Col, Form, Group, Label, Button,Toast } from 'react-bootstrap';
 import router, { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useRef, useState } from 'react';
 import React from 'react';
 import Image from 'next/image';
 import Layout from './Layout';
@@ -11,8 +11,6 @@ import { useWeb3 } from '../contexts/Web3Context';
 import { FaFileImage,FaFileUpload } from 'react-icons/fa';
 import axios from "axios";
 
-
-
 export default function Landlord() {
   const BUCKET_URL = "https://awss3stack-bhrpbucket4d926001-1fpwkenr8hw8b.s3.ap-southeast-2.amazonaws.com/";
   const DEFAULT_IMG = "/images/property.jpg";
@@ -20,6 +18,11 @@ export default function Landlord() {
   const [file, setFile] = useState()
   const [uploadingStatus, setUploadingStatus] = useState()
   const [uploadedFile, setUploadedFile] = useState(DEFAULT_IMG)
+
+  const [showA, setShowA] = useState(false);
+  const [message, setMessage] = useState();
+
+  const toggleShowA = () => setShowA(!showA);
 
   const [validated, setValidated] = useState(false);
   const {
@@ -33,17 +36,37 @@ export default function Landlord() {
   } = useWeb3(); 
   const hiddenFileInput = React.useRef(null);
 
+  // Reset form
+  const formRef = useRef();
+  const handleReset = () => {
+    formRef.current.reset();
+    setValidated(false);
+  };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
+      setValidated(true);
+    }else{
+      event.preventDefault();
+      let { data } = await axios.post("/api/addHouse", {
+        room: event.target.roomsMin.value,
+        bath: event.target.bathsMin.value,
+        type: event.target.categoryExternalID.value,
+        price: event.target.price.value,
+        desc: event.target.description.value,
+        wallet: event.target.wallet.value,
+        img: event.target.image.value,
+      });
+      console.log(data.message);
+      toggleShowA();
+      setMessage(data.message);
+      handleReset();
     }
-
-    setValidated(true);
   };
-
+ 
   function handleWeb3Click() {
     if (!hasWeb3) {
       alert(
@@ -90,7 +113,7 @@ export default function Landlord() {
     
     <Row>
     <Col xs={12} md={8}>
-    <Form noValidate validated={validated} onSubmit={handleSubmit} className='bg-white p-4 shadow-sm pb-5'>
+    <Form noValidate ref={formRef} validated={validated} onSubmit={handleSubmit} className='bg-white p-4 shadow-sm pb-5'>
               {filterData.map((filter) => (
                 (filter.queryName != "sort" && filter.queryName != "maxPrice") &&
       <Row key={filter.queryName+"_row"}>
@@ -100,7 +123,7 @@ export default function Landlord() {
                 {filter.placeholder}
               </Form.Label>
 
-              <Form.Select>
+              <Form.Select name={filter.queryName}>
                 {filter.items.map((item) => (
                   <option value={item.value} key={item.value}>
                     {item.name}
@@ -118,7 +141,7 @@ export default function Landlord() {
             <Form.Label htmlFor="price-input">
               Price
             </Form.Label>
-            <Form.Control required type='input' id='price-input' aria-describedby='price-help'></Form.Control>
+            <Form.Control name="price" pattern="[0-9]{1,15}" required type='input' id='price-input' aria-describedby='price-help'></Form.Control>
             <Form.Text id="price-help" muted>Please give a reasonable price for a crypto tenant.</Form.Text>
           </Form.Group>
         </Col>
@@ -129,7 +152,7 @@ export default function Landlord() {
             <Form.Label htmlFor="desc-input">
             Description
             </Form.Label>
-            <Form.Control required as="textarea" rows={3} id='desc-input' aria-describedby='desc-help'></Form.Control>
+            <Form.Control name="description" required as="textarea" rows={3} id='desc-input' aria-describedby='desc-help'></Form.Control>
             <Form.Text id="desc-help" muted>Please write down some description about your house and you.</Form.Text>
             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           </Form.Group>
@@ -140,7 +163,7 @@ export default function Landlord() {
             <Form.Label htmlFor="wallet-input">
             Crypto Wallet Address  
             </Form.Label>
-            <Form.Control  onClick={handleWeb3Click} readOnly required type='input' value={ensName || walletAddress || ""} id='wallet-input' aria-describedby='wallet-help'></Form.Control>
+            <Form.Control name='wallet' onClick={handleWeb3Click} readOnly required type='input' value={ensName || walletAddress || ""} id='wallet-input' aria-describedby='wallet-help'></Form.Control>
             <Form.Text id="wallet-help" muted>{!walletAddress ? 'Please Login with your WEB3 wallet in advance.':'GM, frens!'}</Form.Text>
             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           </Form.Group>
@@ -151,13 +174,16 @@ export default function Landlord() {
             <Form.Label htmlFor="image-input">
             Image of your house  
             </Form.Label>
-            <Form.Control readOnly required type='input' id='image-input' aria-describedby='image-help' value={uploadedFile}></Form.Control>
+            <Form.Control name='image' readOnly required type='input' id='image-input' aria-describedby='image-help' value={uploadedFile}></Form.Control>
             <Form.Text id="image-help" muted>{DEFAULT_IMG==uploadedFile ? 'Please upload your image of house at first':uploadedFile}</Form.Text>
             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           </Form.Group>
 
       </Row>
       <Row>
+      <Toast onClose={toggleShowA} show={showA} animation={false} delay={3000} autohide>
+          <Toast.Body>{message}</Toast.Body>
+      </Toast> 
       <Button type="submit">Submit form</Button>
       </Row>
     </Form>
@@ -168,7 +194,7 @@ export default function Landlord() {
 
     <Row>
     <Button onClick={handleClick}><FaFileImage className='me-2' />Select a image of your house</Button>
-      <input ref={hiddenFileInput} style={{display: 'none'}} type="file" onChange={(e) => selectFile(e)} />
+      <input ref={hiddenFileInput} style={{display: 'none'}} type="file" accept="image/*" onChange={(e) => selectFile(e)} />
 
         {file && <><p>Image: {file.name} </p><Button onClick={uploadFile}><FaFileUpload className='me-2' />upload!</Button></>
 }
