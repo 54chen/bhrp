@@ -1,14 +1,15 @@
-import { Container, Row, Col, Button } from 'react-bootstrap';
-import { baseUrl, fetchApi } from '@/utils/fetchApi';
-import { useRouter } from 'next/router';
-import Layout from '@/components/Layout';
-import Property from '@/components/Property';
 import Hero from '@/components/Hero';
+import Layout from '@/components/Layout';
 import RecentProperty from '@/components/RecentProperty';
 import Title from '@/components/Title';
 import styles from '@/styles/Home.module.css';
+import { useRouter } from 'next/router';
+import { Button, Container, Row } from 'react-bootstrap';
 
-export default function HomePage({ propertyForRent, propertyForSale }) {
+const { PrismaClient } = require('@prisma/client')
+
+
+export default function HomePage({ propertyForRent }) {
   const router = useRouter();
 
   return (
@@ -46,13 +47,11 @@ export default function HomePage({ propertyForRent, propertyForSale }) {
 }
 
 export async function getStaticProps() {
-  const propertyForRent = await fetchApi(
-    `${baseUrl}/properties/list?locationExternalIDs=5002&purpose=for-rent&hitsPerPage=3`
-  );
-
+  const prisma = new PrismaClient();
+  const propertyForRent = await prisma.house.findMany({take:6});
   return {
     props: {
-      propertyForRent: propertyForRent?.hits,
+      propertyForRent: propertyForRent,
     },
   };
 }

@@ -5,6 +5,7 @@ module.exports = {
       'pixabay.com/illustrations',
       'lid.zoocdn.com',
       'zoopla.co.uk',
+      'awss3stack-bhrpbucket4d926001-1fpwkenr8hw8b.s3.ap-southeast-2.amazonaws.com'
     ],
   },
 };
