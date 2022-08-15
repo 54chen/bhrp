@@ -84,12 +84,27 @@ export const filterData = [
       { name: 'Newest', value: 'date-asc' },
       { name: 'Oldest', value: 'date-desc' },
       { name: 'Verified', value: 'verified-score' },
-      { name: 'City Level Score', value: 'city-level-score' },
+      //{ name: 'City Level Score', value: 'city-level-score' },
     ],
     placeholder: 'Sort',
     queryName: 'sort',
   },
 ];
+
+
+export const getNameByCateID = (id) => {
+  var name = '';
+  filterData.forEach((item) => {
+    if (item.queryName == 'categoryExternalID') {
+      item.items.forEach((t) => {
+        if (t.value == '' + id) {
+          name = t.name;
+        }
+      });
+    }
+  });
+  return name;
+};
 
 export const getFilterValues = (filterValues) => {
   const {

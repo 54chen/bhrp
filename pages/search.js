@@ -7,6 +7,7 @@ import { baseUrl, fetchApi } from '@/utils/fetchApi';
 import Layout from '@/components/Layout';
 import RecentProperty from '@/components/RecentProperty';
 import styles from '@/styles/Search.module.css';
+const { PrismaClient } = require('@prisma/client')
 
 export default function SearchPage({ properties }) {
   const [searchFilters, setSearchFilters] = useState(false);
@@ -36,22 +37,26 @@ export default function SearchPage({ properties }) {
 }
 
 export async function getServerSideProps({ query }) {
-  const purpose = query.purpose || 'for-rent';
-  const maxPrice = query.maxPrice || '1000000';
-  const roomsMin = query.roomsMin || '0';
-  const bathsMin = query.bathsMin || '0';
+  
+  const prisma = new PrismaClient();
+
+  const maxPrice = parseInt(query.maxPrice) || 100;
+  const roomsMin = parseInt(query.roomsMin) || 1;
+  const bathsMin = parseInt(query.bathsMin) || 1;
   const sort = query.sort || 'price-desc';
   const areaMax = query.areaMax || '35000';
   const locationExternalIDs = query.locationExternalIDs || '5002';
-  const categoryExternalID = query.categoryExternalID || '4';
+  const categoryExternalID = parseInt(query.categoryExternalID) || 4;
 
-  const data = await fetchApi(
-    `${baseUrl}/properties/list?locationExternalIDs=${locationExternalIDs}&purpose=${purpose}&categoryExternalID=${categoryExternalID}&bathsMin=${bathsMin}&priceMax=${maxPrice}&roomsMin=${roomsMin}&sort=${sort}&areaMax=${areaMax}`
-  );
-
-  return {
-    props: {
-      properties: data?.hits,
+  const properties = await prisma.house.findMany({
+    where: {
+       price:{lte:maxPrice},
+       room:{lte:roomsMin},
+       bath:{lte:bathsMin},
+       type:categoryExternalID
     },
-  };
+    take:6, orderBy:{id:'desc'}
+  })
+
+  return { props: { properties } };
 }

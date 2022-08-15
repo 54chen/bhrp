@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Card, Col } from 'react-bootstrap';
 import { FaBath, FaBed } from 'react-icons/fa';
-import { filterData } from '@/utils/filterData';
+import { filterData, getNameByCateID } from '@/utils/filterData';
 import { GoPerson } from 'react-icons/go';
 import { BsFillHouseFill } from 'react-icons/bs';
 
@@ -70,20 +70,6 @@ export default function RecentProperty({ property }) {
 
 
 function NameByCateID(props) {
-  const getNameByCateID = (id) => {
-    var name = '';
-    filterData.forEach((item) => {
-      if (item.queryName == 'categoryExternalID') {
-        item.items.forEach((t) => {
-          if (t.value == '' + id) {
-            name = t.name;
-          }
-        });
-      }
-    });
-    return name;
-  }
-
   const name = getNameByCateID(props.type);
 
   return ( <p className='bg-success p-2 rounded'><BsFillHouseFill className='text-success' /> &nbsp;{name}</p>);
