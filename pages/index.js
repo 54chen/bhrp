@@ -48,7 +48,7 @@ export default function HomePage({ propertyForRent }) {
 
 export async function getStaticProps() {
   const prisma = new PrismaClient();
-  const propertyForRent = await prisma.house.findMany({take:6});
+  const propertyForRent = await prisma.house.findMany({take:6, orderBy:{id:'desc'}});
   return {
     props: {
       propertyForRent: propertyForRent,
