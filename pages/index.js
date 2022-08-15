@@ -53,5 +53,6 @@ export async function getStaticProps() {
     props: {
       propertyForRent: propertyForRent,
     },
+    revalidate: 60,
   };
 }
