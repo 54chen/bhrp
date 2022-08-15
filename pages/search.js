@@ -37,26 +37,51 @@ export default function SearchPage({ properties }) {
 }
 
 export async function getServerSideProps({ query }) {
-  
+
   const prisma = new PrismaClient();
 
   const maxPrice = parseInt(query.maxPrice) || 100;
   const roomsMin = parseInt(query.roomsMin) || 1;
   const bathsMin = parseInt(query.bathsMin) || 1;
-  const sort = query.sort || 'price-desc';
+  const sort = query.sort || 'price-des';
   const areaMax = query.areaMax || '35000';
   const locationExternalIDs = query.locationExternalIDs || '5002';
   const categoryExternalID = parseInt(query.categoryExternalID) || 4;
 
+  var order = {}
+  switch (sort) {
+    case 'price-des':
+      order = { price: 'desc' };
+      break;
+    case 'price-asc':
+      order = { price: 'asc'};
+      break;
+    case 'date-asc':
+      order = { id: 'desc' };
+      break;
+    case 'date-desc':
+      order = { id: 'asc' };
+      break;
+    case 'verified-score':
+      order = { wallet: 'desc'};
+      break;
+    default:
+      order = { id: 'desc' };
+      break;
+  }
+
+
   const properties = await prisma.house.findMany({
     where: {
-       price:{lte:maxPrice},
-       room:{lte:roomsMin},
-       bath:{lte:bathsMin},
-       type:categoryExternalID
+      price: { lte: maxPrice },
+      room: { lte: roomsMin },
+      bath: { lte: bathsMin },
+      type: categoryExternalID
     },
-    take:6, orderBy:{id:'desc'}
+    take: 6, orderBy: order
   })
+
+
 
   return { props: { properties } };
 }
