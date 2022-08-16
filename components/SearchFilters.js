@@ -1,11 +1,8 @@
-import { Container, Row, Col, Form, Group, Label } from 'react-bootstrap';
-import router, { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import Image from 'next/image';
-import Layout from './Layout';
-import { filterData, getFilterValues } from '@/utils/filterData';
 import { baseUrl, fetchApi } from '@/utils/fetchApi';
-import styles from '@/styles/Search.module.css';
+import { filterData, getFilterValues } from '@/utils/filterData';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { Col, Form, Row } from 'react-bootstrap';
 
 export default function SearchFilters() {
   const [filters, setFilters] = useState(filterData);
@@ -51,7 +48,7 @@ export default function SearchFilters() {
     <Form className='bg-white p-4 shadow-sm pb-5'>
       <Row>
         {filters.map((filter) => (
-          <Col sm={4} md={6} lg={4} key={filter.queryName+"_col"}>
+          <Col sm={4} md={6} lg={4} key={filter.queryName + "_col"}>
             <Form.Group key={filter.queryName}>
               <Form.Label className='mt-2 mb-2 fw-bold'>
                 {filter.placeholder}
