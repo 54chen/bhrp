@@ -30,7 +30,7 @@ export default function AgentInfo({
   return (
     <div className='bg-white p-4 mt-4 mt-lg-5 shadow-sm'>
       <h2 className='fs-5 fw-bold text-center mb-3'>
-        Contact landlord: {(contactName.substr(0, 4) + ".." + contactName.substr(-3))}
+        Contact landlord: {(contactName.substr(0, 5) + ".." + contactName.substr(-3))}
       </h2>
 
       <div className={styles.agent}>

@@ -9,10 +9,14 @@ function Wave() {
   const { getMyWaves } = useWeb3();
   const [allWaves, setAllWaves] = useState([]);
 
+  const [cnt, setCnt] = useState(0);
+  
 
-  const clickNoti = async () => {
+  const checkWave = async () => {
     let x  = await getMyWaves();
     console.log("result is: %s", x.length);
+    setCnt(x.length);
+    console.log(x);
     setAllWaves(x);
     setShow(true);
     console.log("show");
@@ -25,18 +29,17 @@ function Wave() {
       className="position-float"
       style={{ minHeight: '0px' }}
     >
-      <a href='#' onClick={clickNoti}><SiZwave className='me-2' /></a>
+      <a href='#' onClick={checkWave}><SiZwave className='me-2' /></a>
       <ToastContainer position="top-end" className="p-3">
-        {allWaves.map((wave, index) => {
-          <Toast onClose={() => setShow(false)} show={show} delay={3000} autohide>
+        {allWaves.map((wave, index) => (
+          <Toast onClose={() => setShow(false)} show={show} delay={5000} autohide>
             <Toast.Header>
-              <img className="rounded me-2" alt="" />
-              <strong className="me-auto">Address: {wave.address}</strong>
-              <small className="text-muted">Time: {wave.timestamp.toString()}</small>
+              <strong className="me-auto">{wave.address}</strong>
+              <small className="text-muted">{wave.timestamp.toString()}</small>
             </Toast.Header>
-            <Toast.Body>Message: {wave.message}</Toast.Body>
+            <Toast.Body>{wave.message}</Toast.Body>
           </Toast>
-        })}
+        ))}
       </ToastContainer>
     </div>
   );
