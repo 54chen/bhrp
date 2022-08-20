@@ -1,14 +1,13 @@
-import { Navbar, Container, Nav, Button, ButtonGroup } from 'react-bootstrap';
-import { BiHome } from 'react-icons/bi';
-import Link from 'next/link';
 import styles from '@/styles/Navbar.module.css';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { Button, ButtonGroup, Container, Nav, Navbar } from 'react-bootstrap';
+import { BiHome } from 'react-icons/bi';
 import { useWeb3 } from '../contexts/Web3Context';
-import React, { useEffect, useState } from 'react';
-import Davatar from '@davatar/react';
 
 
 export default function Header() {
-  
+
   return (
     <Navbar collapseOnSelect expand='md' className='shadow-sm bg-white'>
       <Container>
@@ -27,7 +26,7 @@ export default function Header() {
             <Link href='/'>
               <a className='me-4'>Home</a>
             </Link>
-            
+
             <Link href='/search'>
               <a className='me-4'>Search</a>
             </Link>
@@ -36,9 +35,9 @@ export default function Header() {
               <a className='me-4'>I am the landlord</a>
             </Link>
 
-            
+
             <ConnectionButton size="sm" />
-            
+
           </Nav>
         </Navbar.Collapse>
       </Container>
@@ -54,8 +53,9 @@ function ConnectionButton(props) {
       setMsg('Connect Wallet');
     }
     const m = ensName || (walletAddress ? (walletAddress.substr(0, 4) + ".." + walletAddress.substr(-3)) : null) || "Connect Wallet";
-    setMsg (m)
-    , []});
+    setMsg(m)
+      , []
+  });
 
   const {
     hasWeb3,
@@ -65,7 +65,7 @@ function ConnectionButton(props) {
     disconnectWallet,
     isConnected,
     bankBalance,
-  } = useWeb3(); 
+  } = useWeb3();
 
   const compactFormatter = Intl.NumberFormat('en', { notation: 'compact' });
 

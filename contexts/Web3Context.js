@@ -58,10 +58,16 @@ export function Web3Provider({ children }) {
     await libWeb3.disconnectWallet();
     setState(getInitialState());
   }
+
+  async function executeContract(contractAddress, contractABI) {
+    console.log('execute contract');
+    await libWeb3.executeContract(contractAddress, contractABI);
+  }
  
   const value = {
     connectWallet,
     disconnectWallet,
+    executeContract,
     isConnected: Boolean(state.walletAddress),
     ...state,
   };

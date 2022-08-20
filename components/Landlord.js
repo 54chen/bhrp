@@ -1,15 +1,9 @@
-import { Container, Row, Col, Form, Group, Label, Button,Toast } from 'react-bootstrap';
-import router, { useRouter } from 'next/router';
-import { useRef, useState } from 'react';
-import React from 'react';
-import Image from 'next/image';
-import Layout from './Layout';
-import { filterData, getFilterValues } from '@/utils/filterData';
-import { baseUrl, fetchApi } from '@/utils/fetchApi';
-import styles from '@/styles/Search.module.css';
-import { useWeb3 } from '../contexts/Web3Context';
-import { FaFileImage,FaFileUpload } from 'react-icons/fa';
+import { filterData } from '@/utils/filterData';
 import axios from "axios";
+import React, { useRef, useState } from 'react';
+import { Button, Col, Form, Row, Toast } from 'react-bootstrap';
+import { FaFileImage, FaFileUpload } from 'react-icons/fa';
+import { useWeb3 } from '../contexts/Web3Context';
 
 export default function Landlord() {
   const BUCKET_URL = "https://awss3stack-bhrpbucket4d926001-1fpwkenr8hw8b.s3.ap-southeast-2.amazonaws.com/";

@@ -26,6 +26,7 @@
     "web3modal": "^1.9.8"
   },
   "devDependencies": {
+    "hardhat": "^2.9.9",
     "prisma": "^4.2.1"
   }
 }
