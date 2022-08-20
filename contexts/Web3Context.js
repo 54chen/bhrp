@@ -1,20 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import * as libWeb3 from '../lib/web3';
 
-// type State = {
-//   hasWeb3: boolean;
-//   walletAddress: string | null;
-//   ensName: string | null;
-//   bankBalance: number | null;
-// };
-
-// interface ContextValue extends State {
-//   isConnected: boolean;
-//   connectWallet: () => void;
-//   disconnectWallet: () => void;
-//   loadBankBalance: () => void;
-// }
-
 const Web3Context = createContext(undefined);
 
 function getInitialState() {
@@ -59,15 +45,21 @@ export function Web3Provider({ children }) {
     setState(getInitialState());
   }
 
-  async function executeContract(contractAddress, contractABI) {
+  async function executeContract(message, to) {
     console.log('execute contract');
-    await libWeb3.executeContract(contractAddress, contractABI);
+    await libWeb3.executeContract(message, to);
   }
- 
+
+  async function getMyWaves() {
+    console.log('get my waves!');
+    return await libWeb3.getMyWaves();
+  }
+
   const value = {
     connectWallet,
     disconnectWallet,
     executeContract,
+    getMyWaves,
     isConnected: Boolean(state.walletAddress),
     ...state,
   };

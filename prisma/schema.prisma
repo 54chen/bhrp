@@ -5,6 +5,7 @@ generator client {
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
 model house {
@@ -16,4 +17,6 @@ model house {
   desc   String @default("") @db.VarChar(250)
   wallet String @default("") @db.VarChar(100)
   img    String @default("") @db.VarChar(200)
+  ens String @default("") @db.VarChar(100)
+
 }

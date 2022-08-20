@@ -11,7 +11,7 @@ import {  getNameByCateID } from '@/utils/filterData';
 const { PrismaClient } = require('@prisma/client')
 
 export default function SingleProperty({
-  property: { room, bath, type, price, desc, wallet, img },
+  property: { room, bath, type, price, desc, wallet, img, ens },
 }) {
   const amenities = [room+" room",bath+" bath", getNameByCateID(type), price + "NZD/week"]
   return (
@@ -49,7 +49,7 @@ export default function SingleProperty({
 
             <Col lg={5} className='ps-lg-5'>
               <AgentInfo
-                agency={wallet}
+                agency={ens}
                 contactName={wallet}
                 verification={wallet}
                 phoneNumber={wallet}

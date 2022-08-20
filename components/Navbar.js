@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Button, ButtonGroup, Container, Nav, Navbar } from 'react-bootstrap';
 import { BiHome } from 'react-icons/bi';
 import { useWeb3 } from '../contexts/Web3Context';
-
+import Wave from './Wave'
 
 export default function Header() {
 
@@ -45,7 +45,6 @@ export default function Header() {
   );
 }
 
-
 function ConnectionButton(props) {
   const [msg, setMsg] = useState('Login');
   useEffect(() => {
@@ -84,6 +83,7 @@ function ConnectionButton(props) {
 
   return (
     <>
+      <Wave />
       <ButtonGroup size={props.size} onClick={handleClick}>
         <Button bg="black" color="white">{msg}</Button>
       </ButtonGroup>
