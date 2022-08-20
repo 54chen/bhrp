@@ -2,7 +2,7 @@ import styles from '@/styles/Agent.module.css';
 import Image from 'next/image';
 import { Button } from 'react-bootstrap';
 import { FaBitcoin, FaFacebookMessenger } from 'react-icons/fa';
-import { useWeb3 } from '../../contexts/Web3Context';
+import SendWave from '@/components/SendWave';
 
 export default function AgentInfo({
   agency,
@@ -11,20 +11,7 @@ export default function AgentInfo({
   phoneNumber,
 }) {
 
-  const {
-    hasWeb3,
-    walletAddress,
-    ensName,
-    connectWallet,
-    disconnectWallet,
-    executeContract,
-    isConnected
-  } = useWeb3();
 
-  const wave = async (to) => {
-    console.log('wave to the landlord!');
-    executeContract("this is a wave message", to);
-  }
 
 
   return (
@@ -48,8 +35,7 @@ export default function AgentInfo({
           </h4>
           <p className='fw-bold'>Call: {phoneNumber}</p>
           */}
-        <a href='#' onClick={()=>{wave(contactName)}}><p className='fw-bold'><FaFacebookMessenger className='me-2' />
-          Send a wave by Blockchain</p></a>
+        <SendWave to={contactName} />
         <div className='d-grid gap-2'>
           <Button variant='primary'>
             <FaBitcoin className='me-2' />
