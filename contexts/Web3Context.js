@@ -54,12 +54,16 @@ export function Web3Provider({ children }) {
     console.log('get my waves!');
     return await libWeb3.getMyWaves();
   }
+  async function getContract(onNewWave, flag) {
+    console.log('get my getContract!');
+    return await libWeb3.getContract(onNewWave, flag);
+  }
 
   const value = {
     connectWallet,
     disconnectWallet,
     executeContract,
-    getMyWaves,
+    getMyWaves, getContract,
     isConnected: Boolean(state.walletAddress),
     ...state,
   };

@@ -47,9 +47,14 @@ export default function Header() {
 
 function ConnectionButton(props) {
   const [msg, setMsg] = useState('Login');
+  const [wave, setWave] = useState(false);
+
   useEffect(() => {
     if (!walletAddress) {
       setMsg('Connect Wallet');
+      setWave(false);
+    }else{
+      setWave(true);
     }
     const m = ensName || (walletAddress ? (walletAddress.substr(0, 4) + ".." + walletAddress.substr(-3)) : null) || "Connect Wallet";
     setMsg(m)
@@ -83,7 +88,7 @@ function ConnectionButton(props) {
 
   return (
     <>
-      {walletAddress && <Wave />}
+      {wave && <Wave />}
       <ButtonGroup size={props.size} onClick={handleClick}>
         <Button bg="black" color="white">{msg}</Button>
       </ButtonGroup>
