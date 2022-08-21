@@ -158,7 +158,7 @@ export default function Landlord() {
             <Form.Label htmlFor="wallet-input">
             Crypto Wallet Address  
             </Form.Label>
-            <Form.Control name='wallet' onClick={handleWeb3Click} readOnly required type='input' value={walletAddress} id='wallet-input' aria-describedby='wallet-help'></Form.Control>
+            <Form.Control name='wallet' onClick={handleWeb3Click} readOnly required type='input' value={walletAddress||""} id='wallet-input' aria-describedby='wallet-help'></Form.Control>
             <Form.Control name='ens' onClick={handleWeb3Click} readOnly required type='hidden' value={ensName || walletAddress || ""}></Form.Control>
             <Form.Text id="wallet-help" muted>{!walletAddress ? 'Please Login with your WEB3 wallet in advance.':'GM, frens!'}</Form.Text>
             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>

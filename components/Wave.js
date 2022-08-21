@@ -32,7 +32,7 @@ function Wave() {
       <a href='#' onClick={checkWave}><SiZwave className='me-2' /></a>
       <ToastContainer position="top-end" className="p-3">
         {allWaves.map((wave, index) => (
-          <Toast onClose={() => setShow(false)} show={show} delay={5000} autohide>
+          <Toast key={index} onClose={() => setShow(false)} show={show} delay={5000} autohide>
             <Toast.Header>
               <strong className="me-auto">{wave.address}</strong>
               <small className="text-muted">{wave.timestamp.toString()}</small>

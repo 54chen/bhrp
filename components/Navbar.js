@@ -83,7 +83,7 @@ function ConnectionButton(props) {
 
   return (
     <>
-      <Wave />
+      {walletAddress && <Wave />}
       <ButtonGroup size={props.size} onClick={handleClick}>
         <Button bg="black" color="white">{msg}</Button>
       </ButtonGroup>
