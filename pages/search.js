@@ -102,7 +102,6 @@ export async function getServerSideProps({ query }) {
     skip: (page-1) * pageSize, take: pageSize, orderBy: order
   };
 
-  console.log(findOption);
   const properties = await prisma.house.findMany(findOption);
 
   const cnt = await prisma.house.count({where:whereOption});
