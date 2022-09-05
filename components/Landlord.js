@@ -43,6 +43,11 @@ export default function Landlord() {
       event.preventDefault();
       event.stopPropagation();
       setValidated(true);
+    }else if (event.target.wallet.value == ""){
+      alert("Please use a Web3 compatible browser or extension, such as MetaMask. And login in advance.");
+      event.preventDefault();
+      event.stopPropagation();
+      setValidated(true);
     }else{
       event.preventDefault();
       let { data } = await axios.post("/api/addHouse", {
@@ -59,6 +64,7 @@ export default function Landlord() {
       toggleShowA();
       setMessage(data.message);
       handleReset();
+      alert(data.message);
     }
   };
  
@@ -99,6 +105,7 @@ export default function Landlord() {
 
     setUploadedFile(BUCKET_URL + file.name);
     setFile(null);
+    alert("Upload successully!")
   };
   const handleClick = event => {
     hiddenFileInput.current.click();

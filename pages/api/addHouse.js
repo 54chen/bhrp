@@ -13,6 +13,9 @@ export default async function handle(req, res){
   try {
     let { room,bath,type,price,desc,wallet,img } = req.body;
  
+    if (wallet == ""){
+      return res.status(400).json({ message: "Please Login with your WEB3 wallet in advance." });
+    }
     await prisma.house.create({
       data:{
        room: parseInt(room),
