@@ -27,14 +27,24 @@ const main = async () => {
   console.log("Contract deployed by:", owner.address);
 
   // reward settings
-  await waveContract.setRewardsDuration(1);
+  await HGTContract.approve(waveContract.address,1000000);
+  await waveContract.addRewardAmount(1000000);
+  await waveContract.setRewardsDuration(100);
+  await waveContract.notifyRewardAmount(100);
+
+
+  // stake
   await HMTContract.approve(waveContract.address,10)
   await waveContract.stake(10);
 
-  await new Promise(r => setTimeout(r, 2000));
+
+  
+  await new Promise(r => setTimeout(r, 10000));
 
   let earned = await waveContract.earned(owner.address);
   console.log("I earned:", earned);
+
+  await waveContract.getReward();
 
   let contractBalance = await hre.ethers.provider.getBalance(
     waveContract.address

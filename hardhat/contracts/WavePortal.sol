@@ -66,7 +66,6 @@ contract WavePortal {
         if (totalSupply == 0) {
             return rewardPerTokenStored;
         }
-
         return
             rewardPerTokenStored +
             (rewardRate * (lastTimeRewardApplicable() - updatedAt) * 1e18) /
@@ -80,12 +79,29 @@ contract WavePortal {
             rewards[_account];
     }
 
+    function getReward() external updateReward(msg.sender) {
+        uint reward = rewards[msg.sender];
+        if (reward > 0) {
+            rewards[msg.sender] = 0;
+            rewardsToken.transfer(msg.sender, reward);
+        }
+    }
 
     function _min(uint x, uint y) private pure returns (uint) {
         return x <= y ? x : y;
     }
 
     // Reward
+
+    function addRewardAmount(uint _amount) external onlyOwner
+    {
+        console.log("add HGToken:", _amount);
+        rewardsToken.transferFrom(msg.sender, address(this), _amount);
+    }
+    function setRewardsDuration(uint _duration) external onlyOwner {
+        require(finishAt < block.timestamp, "reward duration not finished");
+        duration = _duration;
+    }
 
     function notifyRewardAmount(uint _amount)
         external
@@ -116,12 +132,6 @@ contract WavePortal {
         totalSupply += _amount;
     }
 
-    function setRewardsDuration(uint _duration) external onlyOwner {
-        require(finishAt < block.timestamp, "reward duration not finished");
-        duration = _duration;
-    }
-
- 
     function withdraw(uint _amount) external updateReward(msg.sender) {
         require(_amount > 0, "amount = 0");
         balanceOf[msg.sender] -= _amount;
