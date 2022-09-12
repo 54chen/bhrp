@@ -57,7 +57,8 @@ contract WavePortal {
 
         _;
     }
-
+    function getHGT() public view returns (uint) {}
+    
     function lastTimeRewardApplicable() public view returns (uint) {
         return _min(finishAt, block.timestamp);
     }
