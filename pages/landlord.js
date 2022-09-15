@@ -13,7 +13,7 @@ export default function LandlordPage() {
   const router = useRouter();
 
   return (
-    <Layout title='BHRP | Home'>
+    <Layout title='BHRP | Submit my house'>
       <div className={styles.wrapper}>
          
         <Container className={styles.properties}>

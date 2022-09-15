@@ -57,8 +57,10 @@ contract WavePortal {
 
         _;
     }
-    function getHGT() public view returns (uint) {}
-    
+    function getAccountDetails() public view returns (uint, uint, uint, uint) {
+        return (stakingToken.balanceOf(msg.sender), rewardsToken.balanceOf(msg.sender), balanceOf[msg.sender], earned(msg.sender));
+    } 
+
     function lastTimeRewardApplicable() public view returns (uint) {
         return _min(finishAt, block.timestamp);
     }
