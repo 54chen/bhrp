@@ -16,7 +16,7 @@ export default async function handle(req, res){
     if (wallet == ""){
       return res.status(400).json({ message: "Please Login with your WEB3 wallet in advance." });
     }
-    await prisma.house.create({
+    const house = await prisma.house.create({
       data:{
        room: parseInt(room),
        bath: parseInt(bath),
@@ -24,13 +24,12 @@ export default async function handle(req, res){
        price: parseInt(price),
        desc, wallet, img
       }
-    })
-  
+    });
 
-    return res.status(200).json({ message: "add successfully" });
+    return res.status(200).json({ message: "add successfully", id: house.id });
   } catch (err) {
     console.log(err);
-    return res.status(400).json({ message: err });
+    return res.status(400).json({ message: err, id: -1});
   }
 }
 

@@ -27,6 +27,7 @@ export default function Landlord() {
     disconnectWallet,
     isConnected,
     bankBalance,
+    awardItem,
   } = useWeb3(); 
   const hiddenFileInput = React.useRef(null);
 
@@ -60,6 +61,9 @@ export default function Landlord() {
         img: event.target.image.value,
         ens: event.target.ens.value,
       });
+      if(data.id > 0) {
+        await awardItem(data.id);
+      }
       console.log(data.message);
       toggleShowA();
       setMessage(data.message);

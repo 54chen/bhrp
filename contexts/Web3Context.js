@@ -76,13 +76,16 @@ export function Web3Provider({ children }) {
     console.log('get my async function agree(amount, address, id)!');
     return await libWeb3.agree(amount, address, id);
   }
-
+  async function awardItem(address, id) {
+    console.log('get my async function awardItem(address, id)!');
+    return await libWeb3.awardItem(address, id);
+  }
 
   const value = {
     connectWallet,
     disconnectWallet,
     executeContract,
-    getMyWaves, getContract, getMyAccount, getWhoPaid, paid, agree,
+    getMyWaves, getContract, getMyAccount, getWhoPaid, paid, agree,awardItem,
     isConnected: Boolean(state.walletAddress),
     ...state,
   };

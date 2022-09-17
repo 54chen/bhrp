@@ -61,11 +61,11 @@ contract WavePortal {
     } 
 
     // NFT
-    function awardItem(address player, string memory tokenURI, uint256 newItemId)
+    function awardItem(string memory tokenURI, uint256 newItemId)
         public
         returns (uint256)
     {
-        houseNFT.awardItem(player, tokenURI, newItemId);
+        houseNFT.awardItem(msg.sender, tokenURI, newItemId);
         return newItemId;
     }
 
