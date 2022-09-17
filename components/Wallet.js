@@ -30,7 +30,7 @@ export default function Wallet() {
       {!display && (<Row><Button onClick={show}>Open My Wallet</Button></Row>)}
       {display && (<div>
       <Row>
-      <h4><MdGeneratingTokens/>My House (NFT): {account[4]}</h4>
+      <h4><MdGeneratingTokens/>My House (NFT): {account[4]*1e18}</h4>
        
       </Row>
       <Row>

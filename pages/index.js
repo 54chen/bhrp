@@ -16,8 +16,8 @@ export default function HomePage({ propertyForRent }) {
     <Layout title='BHRP | Home'>
       <div className={styles.wrapper}>
         <Hero
-          title='The first CRYPTO rental platform in NZ'
-          info='Find Your Dream House Easily and Quickly.'
+          title='Rent to Earn'
+          info='The first CRYPTO rental platform in NZ.'
         />
         <Container className={styles.properties}>
           <Title
