@@ -59,11 +59,30 @@ export function Web3Provider({ children }) {
     return await libWeb3.getContract(onNewWave, flag);
   }
 
+  async function getMyAccount() {
+    console.log('get my getMyAccount!');
+    return await libWeb3.getMyAccount();
+  }
+  async function getWhoPaid(id) {
+    console.log('get my function getWhoPaid(id)!');
+    return await libWeb3.getWhoPaid(id);
+  }
+  async function paid(amount, id) {
+    console.log('get my async function paid!');
+    return await libWeb3.paid(amount, id);
+  }
+
+  async function agree(amount, address, id) {
+    console.log('get my async function agree(amount, address, id)!');
+    return await libWeb3.agree(amount, address, id);
+  }
+
+
   const value = {
     connectWallet,
     disconnectWallet,
     executeContract,
-    getMyWaves, getContract,
+    getMyWaves, getContract, getMyAccount, getWhoPaid, paid, agree,
     isConnected: Boolean(state.walletAddress),
     ...state,
   };

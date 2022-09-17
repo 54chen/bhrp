@@ -17,9 +17,27 @@ const main = async () => {
   let hmt = await HMTContract.balanceOf(owner.address);
   console.log("He has HMT:", hmt);
 
+  const HouseNFTContractFactory = await hre.ethers.getContractFactory("House");
+  const HouseNFTContract = await HouseNFTContractFactory.deploy();
+  await HouseNFTContract.deployed();
+  console.log("HouseNFT deployed to:", HouseNFTContract.address);
+  console.log("HouseNFT deployed by:", owner.address);
+  HouseNFTContract.awardItem(owner.address, "https://www.google.com", 1);
+  let houseNFT = await HouseNFTContract.balanceOf(owner.address);
+  console.log("He has House:", houseNFT);
+
+  const RentalNFTContractFactory = await hre.ethers.getContractFactory("Rental");
+  const RentalNFTContract = await RentalNFTContractFactory.deploy();
+  await RentalNFTContract.deployed();
+  console.log("RentalNFT deployed to:", RentalNFTContract.address);
+  console.log("RentalNFT deployed by:", owner.address);
+  RentalNFTContract.awardItem(owner.address, "https://www.google.com", 2);
+  let rentalNFT = await RentalNFTContract.balanceOf(owner.address);
+  console.log("He has Rental:", rentalNFT);
+
 
   const waveContractFactory = await hre.ethers.getContractFactory("WavePortal");
-  const waveContract = await waveContractFactory.deploy(HMTContract.address, HGTContract.address,{
+  const waveContract = await waveContractFactory.deploy(HMTContract.address, HGTContract.address, HouseNFTContract.address, RentalNFTContract.address,{
     value: hre.ethers.utils.parseEther("0.1"),
   });
   await waveContract.deployed();
@@ -35,11 +53,17 @@ const main = async () => {
 
   // stake
   await HMTContract.approve(waveContract.address,10)
-  await waveContract.stake(10);
+  await waveContract.stake(1);
+  // paid
+  await HMTContract.approve(waveContract.address,10)
+  await waveContract.paid(10,1);
+  // agree
+  await waveContract.agree(10,owner.address,1);
+  // get no 1 all paid map 
+  let paids = await waveContract.getAllWhoPaid(1);
+  console.log('count of No.1 house paid list: %d',paids.length);
 
-
-  
-  await new Promise(r => setTimeout(r, 10000));
+  await new Promise(r => setTimeout(r, 1000));
 
   let earned = await waveContract.earned(owner.address);
   console.log("I earned:", earned);

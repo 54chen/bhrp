@@ -1,50 +1,64 @@
-import { Col, Row } from 'react-bootstrap';
+import { useState, useEffect } from 'react';
+import { Button, Col, Row } from 'react-bootstrap';
 import { MdGeneratingTokens, MdOutlineAttachMoney, MdOutlineGeneratingTokens, MdOutlineMoney } from 'react-icons/md';
 import { useWeb3 } from '../contexts/Web3Context';
+import { ethers } from 'ethers';
 
 export default function Wallet() {
   const DEFAULT_IMG = "/images/property.jpg";
+  const [account, setAccount] = useState([]);
+
   const {
-    hasWeb3,
-    walletAddress,
-    ensName,
-    connectWallet,
-    disconnectWallet,
-    isConnected,
-    bankBalance,
+    getMyAccount, getWhoPaid, paid, agree
   } = useWeb3(); 
+  async function show() {
+    let x = await getMyAccount();
+    let acc = [];
+    x.forEach(v => {
+      acc.push(parseFloat(ethers.utils.formatEther(v)));
+    });
+    setAccount(acc);
+  }
   return (
     <Row>
       
     <Col>
     <div className='bg-white p-4 mt-4 mt-lg-5 shadow-sm'>
-
+      <Row><Button onClick={show}>Show</Button></Row>
       <Row>
-      <h4><MdGeneratingTokens/>My Housing Governance Token (HGT): 100</h4>
+      <h4><MdGeneratingTokens/>My House (NFT): {account[4]}</h4>
+       
+      </Row>
+      <Row>
+      <h4><MdGeneratingTokens/>My Rental (NFT): {account[5]}</h4>
+       
+      </Row>
+      <Row>
+      <h4><MdGeneratingTokens/>My Housing Governance Token (HGT): {account[1]}</h4>
       </Row>
       <Row>
          
       </Row>
       <Row>
-        <h5><MdOutlineGeneratingTokens/>Staking HGT: 10</h5>
+        <h5><MdOutlineGeneratingTokens/>Staking HGT: </h5>
       </Row>
       <Row>
        
       </Row>
       <Row>
-      <h4><MdGeneratingTokens/>My Housing Maintenance Token (HGT): 100</h4>
+      <h4><MdGeneratingTokens/>My Housing Maintenance Token (HMT): {account[0]}</h4>
        
       </Row>
       <Row>
-      <h5><MdOutlineGeneratingTokens/>Staking HGT: 100</h5>
+      <h5><MdOutlineGeneratingTokens/>Staking MMT: {account[2]}</h5>
        
       </Row>
       <Row>
-        <h3><MdOutlineAttachMoney/>Earned HGT: 100</h3>
+        <h3><MdOutlineAttachMoney/>Earned HGT: {account[3]}</h3>
        
       </Row>
       <Row>
-      <h3><MdOutlineMoney/>Earned HMT: 100</h3>
+      <h3><MdOutlineMoney/>Earned HMT: </h3>
        
       </Row>
       </div>

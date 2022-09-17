@@ -4,7 +4,9 @@ pragma solidity ^0.8.4;
 
 import "hardhat/console.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
-
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "./House.sol";
+import "./Rental.sol";
 
 contract WavePortal {
     uint256 totalWaves;
@@ -12,6 +14,16 @@ contract WavePortal {
 
     IERC20 public immutable stakingToken;
     IERC20 public immutable rewardsToken;
+    House public immutable houseNFT;
+    Rental public immutable rentalNFT;
+
+    struct WhoPaid {
+        address tenant; // The address of the user who paid.
+        uint amount; // The amount the user paid.
+        uint256 timestamp; // The timestamp when the user paid.
+    }
+    mapping(uint256 => WhoPaid[]) private paidMap;
+    
     address public owner;
      // Duration of rewards to be paid out (in seconds)
     uint public duration;
@@ -33,14 +45,31 @@ contract WavePortal {
     // User address => staked amount
     mapping(address => uint) public balanceOf;
 
-    constructor(address _stakingToken, address _rewardToken) payable {
+    constructor(address _stakingToken, address _rewardToken, address _houseNFT, address _rentalNFT) payable {
         console.log("[smart contract]Yo yo, I am a contract and I am smart");
         seed = (block.timestamp + block.difficulty) % 100;
         owner = msg.sender;
-        stakingToken = IERC20(_stakingToken);
-        rewardsToken = IERC20(_rewardToken);
+        stakingToken = IERC20(_stakingToken); // HMT
+        rewardsToken = IERC20(_rewardToken); // HGT
+        houseNFT = House(_houseNFT);
+        rentalNFT = Rental(_rentalNFT);
     }
 
+    // wallet deatils
+    function getAccountDetails() public view returns (uint, uint, uint, uint, uint, uint) {
+        return (stakingToken.balanceOf(msg.sender), rewardsToken.balanceOf(msg.sender), balanceOf[msg.sender], earned(msg.sender), houseNFT.balanceOf(msg.sender), rentalNFT.balanceOf(msg.sender));
+    } 
+
+    // NFT
+    function awardItem(address player, string memory tokenURI, uint256 newItemId)
+        public
+        returns (uint256)
+    {
+        houseNFT.awardItem(player, tokenURI, newItemId);
+        return newItemId;
+    }
+
+    // HGT HMT
     modifier onlyOwner() {
         require(msg.sender == owner, "not authorized");
         _;
@@ -57,9 +86,7 @@ contract WavePortal {
 
         _;
     }
-    function getAccountDetails() public view returns (uint, uint, uint, uint) {
-        return (stakingToken.balanceOf(msg.sender), rewardsToken.balanceOf(msg.sender), balanceOf[msg.sender], earned(msg.sender));
-    } 
+
 
     function lastTimeRewardApplicable() public view returns (uint) {
         return _min(finishAt, block.timestamp);
@@ -140,6 +167,34 @@ contract WavePortal {
         balanceOf[msg.sender] -= _amount;
         totalSupply -= _amount;
         stakingToken.transfer(msg.sender, _amount);
+    }
+
+    // tenant stake paid
+    function paid(uint _amount, uint id) external updateReward(msg.sender) {
+        require(_amount > 0, "amount = 0");
+        stakingToken.transferFrom(msg.sender, address(this), _amount);
+        balanceOf[msg.sender] += _amount;
+        totalSupply += _amount;
+        paidMap[id].push(
+            WhoPaid(msg.sender, _amount, block.timestamp)
+        );
+    }
+
+    // landlord agree 
+    function agree(uint _amount, address whoPaid, uint id) external updateReward(msg.sender) {
+        require(_amount > 0, "amount = 0");
+        require(msg.sender == houseNFT.ownerOf(id), "not NFT owner");
+        // TODO whoPai and house id and amount check
+        balanceOf[whoPaid] -= _amount;
+        balanceOf[msg.sender] += _amount;
+        // TODO URI
+        rentalNFT.awardItem(whoPaid, "", id);
+    }
+
+    // get paidMap
+    function getAllWhoPaid(uint id) public view returns (WhoPaid[] memory) {
+        WhoPaid[] memory re = paidMap[id];
+        return re;
     }
 
     // Wave
