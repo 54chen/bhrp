@@ -3,7 +3,7 @@ import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
 import { SiZwave } from 'react-icons/si';
 import { GiWallet } from 'react-icons/gi';
-
+import Alert from 'react-bootstrap/Alert';
 import { useWeb3 } from '../contexts/Web3Context';
 
 function Wave() {
