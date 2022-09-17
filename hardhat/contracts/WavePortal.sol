@@ -181,16 +181,17 @@ contract WavePortal {
     }
 
     // landlord agree 
-    function agree(uint _amount, address whoPaid, uint id) external updateReward(msg.sender) {
+    function agree(uint _amount, address whoPaid, uint id, string memory tokenURI) external updateReward(msg.sender) {
         require(_amount > 0, "amount = 0");
-        require(msg.sender == houseNFT.ownerOf(id), "not NFT owner");
+        string memory str = string.concat(toString(msg.sender), toString(houseNFT.ownerOf(id)));
+        require(msg.sender == houseNFT.ownerOf(id), str);
         // TODO whoPai and house id and amount check
         balanceOf[whoPaid] -= _amount;
         balanceOf[msg.sender] += _amount;
         // TODO URI
-        rentalNFT.awardItem(whoPaid, "", id);
+        rentalNFT.awardItem(whoPaid, tokenURI, id);
     }
-
+ 
     // get paidMap
     function getAllWhoPaid(uint id) public view returns (WhoPaid[] memory) {
         WhoPaid[] memory re = paidMap[id];
