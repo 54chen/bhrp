@@ -25,7 +25,6 @@ const main = async () => {
   await HouseNFTContract.deployed();
   console.log("HouseNFT deployed to:", HouseNFTContract.address);
   console.log("HouseNFT deployed by:", deployer.address);
-  HouseNFTContract.awardItem(deployer.address, "https://www.google.com", 0);
   let houseNFT = await HouseNFTContract.balanceOf(deployer.address);
   console.log("He has House:", houseNFT);
 
@@ -34,7 +33,6 @@ const main = async () => {
   await RentalNFTContract.deployed();
   console.log("RentalNFT deployed to:", RentalNFTContract.address);
   console.log("RentalNFT deployed by:", deployer.address);
-  RentalNFTContract.awardItem(deployer.address, "https://www.google.com", 0);
   let rentalNFT = await RentalNFTContract.balanceOf(deployer.address);
   console.log("He has Rental:", rentalNFT);
 

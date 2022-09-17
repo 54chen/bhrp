@@ -7,11 +7,14 @@ import { ethers } from 'ethers';
 export default function Wallet() {
   const DEFAULT_IMG = "/images/property.jpg";
   const [account, setAccount] = useState([]);
+  const [display, setDisplay] = useState(false);
+
 
   const {
     getMyAccount, getWhoPaid, paid, agree
   } = useWeb3(); 
   async function show() {
+    setDisplay(true);
     let x = await getMyAccount();
     let acc = [];
     x.forEach(v => {
@@ -24,7 +27,8 @@ export default function Wallet() {
       
     <Col>
     <div className='bg-white p-4 mt-4 mt-lg-5 shadow-sm'>
-      <Row><Button onClick={show}>Show</Button></Row>
+      {!display && (<Row><Button onClick={show}>Open My Wallet</Button></Row>)}
+      {display && (<div>
       <Row>
       <h4><MdGeneratingTokens/>My House (NFT): {account[4]}</h4>
        
@@ -50,7 +54,7 @@ export default function Wallet() {
        
       </Row>
       <Row>
-      <h5><MdOutlineGeneratingTokens/>Staking MMT: {account[2]}</h5>
+      <h5><MdOutlineGeneratingTokens/>Staking HMT: {account[2]}</h5>
        
       </Row>
       <Row>
@@ -61,6 +65,7 @@ export default function Wallet() {
       <h3><MdOutlineMoney/>Earned HMT: </h3>
        
       </Row>
+      </div>)}
       </div>
      </Col>
 
