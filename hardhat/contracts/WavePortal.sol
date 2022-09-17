@@ -183,7 +183,8 @@ contract WavePortal {
     // landlord agree 
     function agree(uint _amount, address whoPaid, uint id, string memory tokenURI) external updateReward(msg.sender) {
         require(_amount > 0, "amount = 0");
-        string memory str = string.concat(toString(msg.sender), toString(houseNFT.ownerOf(id)));
+        string memory str = string(bytes.concat(bytes(toString(msg.sender)), "-", bytes(toString(houseNFT.ownerOf(id)))));
+
         require(msg.sender == houseNFT.ownerOf(id), str);
         // TODO whoPai and house id and amount check
         balanceOf[whoPaid] -= _amount;
