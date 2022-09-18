@@ -5,9 +5,12 @@ import { Button, ButtonGroup, Container, Nav, Navbar } from 'react-bootstrap';
 import { BiHome } from 'react-icons/bi';
 import { useWeb3 } from '../contexts/Web3Context';
 import Wave from './Wave'
+import { Dna } from  'react-loader-spinner'
 
 export default function Header() {
-
+  const {
+    load
+  } = useWeb3();  
   return (
     <Navbar collapseOnSelect expand='md' className='shadow-sm bg-white'>
       <Container>
@@ -20,7 +23,14 @@ export default function Header() {
         </Link>
         <Navbar.Toggle aria-controls='responsive-navbar-nav' />
         <Navbar.Collapse id='responsive-navbar-nav'>
-          <Nav className='me-auto'></Nav>
+          <Nav className='me-auto'><Dna
+  visible={load}
+  height="50"
+  width="50"
+  ariaLabel="dna-loading"
+  wrapperStyle={{}}
+  wrapperClass="dna-wrapper"
+/></Nav>
 
           <Nav className='fw-bold'>
             <Link href='/'>
@@ -69,8 +79,9 @@ function ConnectionButton(props) {
     disconnectWallet,
     isConnected,
     bankBalance,
+    load
   } = useWeb3();
-
+  
   const compactFormatter = Intl.NumberFormat('en', { notation: 'compact' });
 
   function handleClick() {
