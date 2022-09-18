@@ -33,7 +33,7 @@ export default function AgentInfo({
   }
 
   async function onAgree(amount, address) {
-    let x = await agree(amount*1e18, address, id); 
+    let x = await agree(amount, address, id); 
     setWhos(x);
   }
 
@@ -84,7 +84,7 @@ export default function AgentInfo({
             <IoIosPeople className='me-2' />
             Show Waiting List
           </Button>
-          {whos.map((who, index)=>(
+          {whos && whos.map((who, index)=>(
             <Alert key={index} variant={colors[index%8]}>
               <MdEmojiPeople title={who.address} className='me-2' /> paid {who.amount} at {who.timestamp} <a href='#' onClick={()=>onAgree(who.amount, who.address)}><AiOutlineCarryOut title="Agree"/></a>
             </Alert>
