@@ -188,8 +188,7 @@ contract WavePortal {
         require(msg.sender == houseNFT.ownerOf(id), str);
         // TODO whoPai and house id and amount check
         balanceOf[whoPaid] -= _amount;
-        balanceOf[msg.sender] += _amount;
-        // TODO URI
+        balanceOf[msg.sender] += _amount;        
         rentalNFT.awardItem(whoPaid, tokenURI, id);
     }
  

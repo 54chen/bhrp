@@ -17,8 +17,16 @@ export default function Wallet() {
     setDisplay(true);
     let x = await getMyAccount();
     let acc = [];
-    x.forEach(v => {
-      acc.push(parseFloat(ethers.utils.formatEther(v)));
+    let k = 0;
+    x.forEach((v) => {
+      let unit = "ether";
+      if (k == 4 || k == 5){
+        unit = 0;
+      } 
+      k++;
+      let number = parseFloat(ethers.utils.formatUnits(v, unit));
+      console.log(k,number);
+      acc.push(number);
     });
     setAccount(acc);
   }

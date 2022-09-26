@@ -94,6 +94,14 @@ export function Web3Provider({ children }) {
     return re;
   }
 
+  async function withdraw(amount, id) {
+    setLoad(true);
+    console.log('get my async function withdraw!');
+    let re = await libWeb3.withdraw(amount, id);
+    setLoad(false);
+    return re;
+  }
+
   async function agree(amount, address, id) {
     setLoad(true);
     console.log('get my async function agree(amount, address, id)!');
@@ -113,7 +121,7 @@ export function Web3Provider({ children }) {
     connectWallet,
     disconnectWallet,
     executeContract,
-    getMyWaves, getContract, getMyAccount, getWhoPaid, paid, agree,awardItem,load,
+    getMyWaves, getContract, getMyAccount, getWhoPaid, paid, agree,awardItem,load,withdraw,
     isConnected: Boolean(state.walletAddress),
     ...state,
   };

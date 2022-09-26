@@ -5,6 +5,7 @@ import { FaBitcoin } from 'react-icons/fa';
 import {IoIosPeople} from 'react-icons/io';
 import {MdEmojiPeople} from 'react-icons/md';
 import {AiOutlineCarryOut} from 'react-icons/ai';
+import { RiExchangeDollarFill } from 'react-icons/ri';
 import SendWave from '@/components/SendWave';
 import { useWeb3 } from '../../contexts/Web3Context';
 import { useState } from 'react';
@@ -19,7 +20,7 @@ export default function AgentInfo({
   const [whos, setWhos] = useState([]);
 
   const {
-    getMyAccount, getWhoPaid, paid, agree
+    getMyAccount, getWhoPaid, paid, agree, withdraw, walletAddress
   } = useWeb3(); 
 
   async function pay() {
@@ -33,8 +34,11 @@ export default function AgentInfo({
   }
 
   async function onAgree(amount, address) {
-    let x = await agree(amount, address, id); 
-    setWhos(x);
+    await agree(amount, address, id); 
+  }
+
+  async function onWithdraw(amount) {
+    await withdraw(amount, id); 
   }
 
   const colors = [
@@ -87,6 +91,7 @@ export default function AgentInfo({
           {whos && whos.map((who, index)=>(
             <Alert key={index} variant={colors[index%8]}>
               <MdEmojiPeople title={who.address} className='me-2' /> paid {who.amount} at {who.timestamp} <a href='#' onClick={()=>onAgree(who.amount, who.address)}><AiOutlineCarryOut title="Agree"/></a>
+              {who.address == walletAddress && <a href='#' onClick={()=>onWithdraw(who.amount)}><RiExchangeDollarFill title="withdraw"/></a>}
             </Alert>
           
           ))}
