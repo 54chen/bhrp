@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { ethers } from 'ethers';
+import { useState } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import { MdGeneratingTokens, MdOutlineAttachMoney, MdOutlineGeneratingTokens, MdOutlineMoney } from 'react-icons/md';
 import { useWeb3 } from '../contexts/Web3Context';
-import { ethers } from 'ethers';
 
 export default function Wallet() {
   const DEFAULT_IMG = "/images/property.jpg";
@@ -12,7 +12,7 @@ export default function Wallet() {
 
   const {
     getMyAccount, getWhoPaid, paid, agree
-  } = useWeb3(); 
+  } = useWeb3();
   async function show() {
     setDisplay(true);
     let x = await getMyAccount();
@@ -20,70 +20,70 @@ export default function Wallet() {
     let k = 0;
     x.forEach((v) => {
       let unit = "ether";
-      if (k == 4 || k == 5){
+      if (k == 4 || k == 5) {
         unit = 0;
-      } 
+      }
       k++;
       let number = parseFloat(ethers.utils.formatUnits(v, unit));
-      console.log(k,number);
+      console.log(k, number);
       acc.push(number);
     });
     setAccount(acc);
   }
   return (
     <Row>
-      
-    <Col>
-    <div className='bg-white p-4 mt-4 mt-lg-5 shadow-sm'>
-      {!display && (<Row><Button onClick={show}>Open My Wallet</Button></Row>)}
-      {display && (<div>
-      <Row>
-      <h4><MdGeneratingTokens/>My House (NFT): {account[4]}</h4>
-       
-      </Row>
-      <Row>
-      <h4><MdGeneratingTokens/>My Rental (NFT): {account[5]}</h4>
-       
-      </Row>
-      <Row>
-      <h4><MdGeneratingTokens/>My Housing Governance Token (HGT): {account[1]}</h4>
-      </Row>
-      <Row>
-         
-      </Row>
-      <Row>
-        <h5><MdOutlineGeneratingTokens/>Staking HGT: </h5>
-      </Row>
-      <Row>
-       
-      </Row>
-      <Row>
-      <h4><MdGeneratingTokens/>My Housing Maintenance Token (HMT): {account[0]}</h4>
-       
-      </Row>
-      <Row>
-      <h5><MdOutlineGeneratingTokens/>Staking HMT: {account[2]}</h5>
-       
-      </Row>
-      <Row>
-        <h3><MdOutlineAttachMoney/>Earned HGT: {account[3]}</h3>
-       
-      </Row>
-      <Row>
-      <h3><MdOutlineMoney/>Earned HMT: </h3>
-       
-      </Row>
-      </div>)}
-      </div>
-     </Col>
 
-    <Col>
-    <div className='bg-white p-4 mt-4 mt-lg-5 shadow-sm'>
+      <Col>
+        <div className='bg-white p-4 mt-4 mt-lg-5 shadow-sm'>
+          {!display && (<Row><Button onClick={show}>Open My Wallet</Button></Row>)}
+          {display && (<div>
+            <Row>
+              <h4><MdGeneratingTokens />My House (NFT): {account[4]}</h4>
 
-      <Row>
-        {<img src={DEFAULT_IMG} width={428} height={284} />}
-      </Row>
-      </div>
+            </Row>
+            <Row>
+              <h4><MdGeneratingTokens />My Rental (NFT): {account[5]}</h4>
+
+            </Row>
+            <Row>
+              <h4><MdGeneratingTokens />My Housing Governance Token (HGT): {account[1]}</h4>
+            </Row>
+            <Row>
+
+            </Row>
+            <Row>
+              <h5><MdOutlineGeneratingTokens />Staking HGT: </h5>
+            </Row>
+            <Row>
+
+            </Row>
+            <Row>
+              <h4><MdGeneratingTokens />My Housing Maintenance Token (HMT): {account[0]}</h4>
+
+            </Row>
+            <Row>
+              <h5><MdOutlineGeneratingTokens />Staking HMT: {account[2]}</h5>
+
+            </Row>
+            <Row>
+              <h3><MdOutlineAttachMoney />Earned HGT: {account[3]}</h3>
+
+            </Row>
+            <Row>
+              <h3><MdOutlineMoney />Earned HMT: </h3>
+
+            </Row>
+          </div>)}
+        </div>
+      </Col>
+
+      <Col>
+        <div className='bg-white p-4 mt-4 mt-lg-5 shadow-sm'>
+
+          <Row>
+            {<img src={DEFAULT_IMG} width={428} height={284} />}
+          </Row>
+        </div>
 
       </Col>
     </Row>

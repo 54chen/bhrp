@@ -1,7 +1,7 @@
-import Router from 'next/router';
-import Head from 'next/head';
-import NProgress from 'nprogress';
 import '@/styles/globals.css';
+import Head from 'next/head';
+import Router from 'next/router';
+import NProgress from 'nprogress';
 //import 'bootstrap/dist/css/bootstrap.css';
 
 import { Web3Provider } from '../contexts/Web3Context';
@@ -19,16 +19,16 @@ function MyApp({ Component, pageProps }) {
 
   return (
 
-    <Web3Provider>      
+    <Web3Provider>
       <Head>
-      <link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
-  integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
-  crossOrigin="anonymous"
-/>
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+          crossOrigin="anonymous"
+        />
       </Head>
-        <Component {...pageProps} />
+      <Component {...pageProps} />
     </Web3Provider>
 
   );

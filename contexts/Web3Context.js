@@ -23,7 +23,7 @@ export function Web3Provider({ children }) {
       });
     }
   }, []);
-  
+
   async function connectWallet() {
     setLoad(true);
     if (state.hasWeb3) {
@@ -105,7 +105,7 @@ export function Web3Provider({ children }) {
   async function agree(amount, address, id) {
     setLoad(true);
     console.log('get my async function agree(amount, address, id)!');
-    let re =  await libWeb3.agree(amount, address, id);
+    let re = await libWeb3.agree(amount, address, id);
     setLoad(false);
     return re;
   }
@@ -121,7 +121,7 @@ export function Web3Provider({ children }) {
     connectWallet,
     disconnectWallet,
     executeContract,
-    getMyWaves, getContract, getMyAccount, getWhoPaid, paid, agree,awardItem,load,withdraw,
+    getMyWaves, getContract, getMyAccount, getWhoPaid, paid, agree, awardItem, load, withdraw,
     isConnected: Boolean(state.walletAddress),
     ...state,
   };

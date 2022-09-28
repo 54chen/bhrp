@@ -1,15 +1,15 @@
+import SendWave from '@/components/SendWave';
 import styles from '@/styles/Agent.module.css';
 import Image from 'next/image';
-import { Button } from 'react-bootstrap';
-import { FaBitcoin } from 'react-icons/fa';
-import {IoIosPeople} from 'react-icons/io';
-import {MdEmojiPeople} from 'react-icons/md';
-import {AiOutlineCarryOut} from 'react-icons/ai';
-import { RiExchangeDollarFill } from 'react-icons/ri';
-import SendWave from '@/components/SendWave';
-import { useWeb3 } from '../../contexts/Web3Context';
 import { useState } from 'react';
+import { Button } from 'react-bootstrap';
 import Alert from 'react-bootstrap/Alert';
+import { AiOutlineCarryOut } from 'react-icons/ai';
+import { FaBitcoin } from 'react-icons/fa';
+import { IoIosPeople } from 'react-icons/io';
+import { MdEmojiPeople } from 'react-icons/md';
+import { RiExchangeDollarFill } from 'react-icons/ri';
+import { useWeb3 } from '../../contexts/Web3Context';
 
 export default function AgentInfo({
   agency,
@@ -21,24 +21,24 @@ export default function AgentInfo({
 
   const {
     getMyAccount, getWhoPaid, paid, agree, withdraw, walletAddress
-  } = useWeb3(); 
+  } = useWeb3();
 
   async function pay() {
     //price = price * 0.0001;
-    let x = await paid(price, id); 
+    let x = await paid(price, id);
   }
 
   async function show() {
-    let x = await getWhoPaid(id); 
+    let x = await getWhoPaid(id);
     setWhos(x);
   }
 
   async function onAgree(amount, address) {
-    await agree(amount, address, id); 
+    await agree(amount, address, id);
   }
 
   async function onWithdraw(amount) {
-    await withdraw(amount, id); 
+    await withdraw(amount, id);
   }
 
   const colors = [
@@ -53,17 +53,17 @@ export default function AgentInfo({
   ];
   return (
     <>
-    <div className='bg-white p-4 mt-4 mt-lg-5 shadow-sm'>
-      <h2 className='fs-5 fw-bold text-center mb-3'>
-        Contact landlord: {agency || (contactName ? (contactName.substr(0, 4) + ".." + contactName.substr(-3)) : null)}
-      </h2>
+      <div className='bg-white p-4 mt-4 mt-lg-5 shadow-sm'>
+        <h2 className='fs-5 fw-bold text-center mb-3'>
+          Contact landlord: {agency || (contactName ? (contactName.substr(0, 4) + ".." + contactName.substr(-3)) : null)}
+        </h2>
 
-      <div className={styles.agent}>
-        <Image src={`/images/agent.png`} width={80} height={80} />
-      </div>
+        <div className={styles.agent}>
+          <Image src={`/images/agent.png`} width={80} height={80} />
+        </div>
 
-      <div className='text-center'>
-        {/*<h4 className='fs-5 text-se'>
+        <div className='text-center'>
+          {/*<h4 className='fs-5 text-se'>
           {agency}{' '}
           {verification ? (
             <GoVerified className='text-success' />
@@ -73,30 +73,30 @@ export default function AgentInfo({
           </h4>
           <p className='fw-bold'>Call: {phoneNumber}</p>
           */}
-        <SendWave to={contactName} />
-        <div className='d-grid gap-2'>
-          <Button onClick={pay} variant='primary'>
-            <FaBitcoin className='me-2' />
-            Create Payments
-          </Button>
+          <SendWave to={contactName} />
+          <div className='d-grid gap-2'>
+            <Button onClick={pay} variant='primary'>
+              <FaBitcoin className='me-2' />
+              Create Payments
+            </Button>
+          </div>
         </div>
       </div>
-    </div>
-    <div className='bg-white p-4 mt-4 mt-lg-5 shadow-sm'>
+      <div className='bg-white p-4 mt-4 mt-lg-5 shadow-sm'>
         <div className='d-grid gap-2'>
           <Button onClick={show} variant='primary'>
             <IoIosPeople className='me-2' />
             Show Waiting List
           </Button>
-          {whos && whos.map((who, index)=>(
-            <Alert key={index} variant={colors[index%8]}>
-              <MdEmojiPeople title={who.address} className='me-2' /> paid {who.amount} at {who.timestamp} <a href='#' onClick={()=>onAgree(who.amount, who.address)}><AiOutlineCarryOut title="Agree"/></a>
-              {who.address == walletAddress && <a href='#' onClick={()=>onWithdraw(who.amount)}><RiExchangeDollarFill title="withdraw"/></a>}
+          {whos && whos.map((who, index) => (
+            <Alert key={index} variant={colors[index % 8]}>
+              <MdEmojiPeople title={who.address} className='me-2' /> paid {who.amount} at {who.timestamp} <a href='#' onClick={() => onAgree(who.amount, who.address)}><AiOutlineCarryOut title="Agree" /></a>
+              {who.address == walletAddress && <a href='#' onClick={() => onWithdraw(who.amount)}><RiExchangeDollarFill title="withdraw" /></a>}
             </Alert>
-          
+
           ))}
         </div>
-    </div>
+      </div>
     </>
   );
 }

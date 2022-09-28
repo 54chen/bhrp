@@ -1,4 +1,3 @@
-import { Container, Row, Col } from 'react-bootstrap';
 import styles from '@/styles/Hero.module.css';
 
 export default function HeroPage({ title, info }) {

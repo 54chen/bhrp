@@ -1,19 +1,17 @@
-import { Container, Row, Col,Carousel } from 'react-bootstrap';
-import { baseUrl, fetchApi } from '@/utils/fetchApi';
 import Layout from '@/components/Layout';
-import Image from 'next/image';
-import About from './about';
-import Features from './features';
-import AgentInfo from './agent';
 import styles from '@/styles/SingleProperty.module.css';
-import {  getNameByCateID } from '@/utils/filterData';
+import { getNameByCateID } from '@/utils/filterData';
+import { Carousel, Col, Container, Row } from 'react-bootstrap';
+import About from './about';
+import AgentInfo from './agent';
+import Features from './features';
 
 const { PrismaClient } = require('@prisma/client')
 
 export default function SingleProperty({
   property: { id, room, bath, type, price, desc, wallet, img, ens },
 }) {
-  const amenities = [room+" room",bath+" bath", getNameByCateID(type), price + "NZD/week"]
+  const amenities = [room + " room", bath + " bath", getNameByCateID(type), price + "NZD/week"]
   return (
     <Layout title={`${room}Bedroom | BHRP`}>
       <section className={styles.singleProperty}>
@@ -34,7 +32,7 @@ export default function SingleProperty({
                     />
                   </Carousel.Item></Carousel>
               </Row>
-              
+
               <About description={desc} />
 
               <Row className='mx-auto bg-white shadow-sm mt-4'>
@@ -42,8 +40,8 @@ export default function SingleProperty({
                   Features of Property
                 </h2>
                 {amenities.map((item) =>
-                    <Features key={item} amenity={item} />
-                  )}
+                  <Features key={item} amenity={item} />
+                )}
               </Row>
             </Col>
 

@@ -1,4 +1,3 @@
-import { GoLocation } from 'react-icons/go';
 
 export default function AddressPage({
   baths,
@@ -16,7 +15,7 @@ export default function AddressPage({
           {rentFrequency && ` ${rentFrequency}`}
         </p>
         <p className='bg-success rounded p-2 me-2'>{rooms} Bedroom</p>
-         
+
       </div>
     </div>
   );

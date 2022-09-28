@@ -1,4 +1,4 @@
-import { Row, Col } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
 import { BsCheck2Square } from 'react-icons/bs';
 
 export default function Features({ amenity }) {

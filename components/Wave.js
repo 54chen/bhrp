@@ -1,9 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Toast from 'react-bootstrap/Toast';
 import ToastContainer from 'react-bootstrap/ToastContainer';
-import { SiZwave } from 'react-icons/si';
 import { GiWallet } from 'react-icons/gi';
-import Alert from 'react-bootstrap/Alert';
+import { SiZwave } from 'react-icons/si';
 import { useWeb3 } from '../contexts/Web3Context';
 
 function Wave() {
@@ -54,7 +53,7 @@ function Wave() {
       aria-atomic="true"
       className="position-float"
       style={{ minHeight: '0px' }}
-    >      
+    >
       <a href='/wallet'><GiWallet className='me-2' /></a>
 
       <a href='#' onClick={checkWave}>{alertNew}<SiZwave className='me-2' /></a>

@@ -1,11 +1,11 @@
 import styles from '@/styles/RecentProperty.module.css';
+import { getNameByCateID } from '@/utils/filterData';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Card, Col } from 'react-bootstrap';
-import { FaBath, FaBed } from 'react-icons/fa';
-import { filterData, getNameByCateID } from '@/utils/filterData';
-import { GoPerson } from 'react-icons/go';
 import { BsFillHouseFill } from 'react-icons/bs';
+import { FaBath, FaBed } from 'react-icons/fa';
+import { GoPerson } from 'react-icons/go';
 
 
 
@@ -72,6 +72,6 @@ export default function RecentProperty({ property }) {
 function NameByCateID(props) {
   const name = getNameByCateID(props.type);
 
-  return ( <p className='bg-success p-2 rounded'><BsFillHouseFill className='text-success' /> &nbsp;{name}</p>);
+  return (<p className='bg-success p-2 rounded'><BsFillHouseFill className='text-success' /> &nbsp;{name}</p>);
 }
 

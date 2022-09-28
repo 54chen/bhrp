@@ -3,14 +3,14 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { Button, ButtonGroup, Container, Nav, Navbar } from 'react-bootstrap';
 import { BiHome } from 'react-icons/bi';
+import { Dna } from 'react-loader-spinner';
 import { useWeb3 } from '../contexts/Web3Context';
-import Wave from './Wave'
-import { Dna } from  'react-loader-spinner'
+import Wave from './Wave';
 
 export default function Header() {
   const {
     load
-  } = useWeb3();  
+  } = useWeb3();
   return (
     <Navbar collapseOnSelect expand='md' className='shadow-sm bg-white'>
       <Container>
@@ -24,13 +24,13 @@ export default function Header() {
         <Navbar.Toggle aria-controls='responsive-navbar-nav' />
         <Navbar.Collapse id='responsive-navbar-nav'>
           <Nav className='me-auto'><Dna
-  visible={load}
-  height="50"
-  width="50"
-  ariaLabel="dna-loading"
-  wrapperStyle={{}}
-  wrapperClass="dna-wrapper"
-/></Nav>
+            visible={load}
+            height="50"
+            width="50"
+            ariaLabel="dna-loading"
+            wrapperStyle={{}}
+            wrapperClass="dna-wrapper"
+          /></Nav>
 
           <Nav className='fw-bold'>
             <Link href='/'>
@@ -63,7 +63,7 @@ function ConnectionButton(props) {
     if (!walletAddress) {
       setMsg('Connect Wallet');
       setWave(false);
-    }else{
+    } else {
       setWave(true);
     }
     const m = ensName || (walletAddress ? (walletAddress.substr(0, 4) + ".." + walletAddress.substr(-3)) : null) || "Connect Wallet";
@@ -81,7 +81,7 @@ function ConnectionButton(props) {
     bankBalance,
     load
   } = useWeb3();
-  
+
   const compactFormatter = Intl.NumberFormat('en', { notation: 'compact' });
 
   function handleClick() {

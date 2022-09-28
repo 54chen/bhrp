@@ -7,7 +7,7 @@ import { FaFacebookMessenger } from 'react-icons/fa';
 import { useWeb3 } from '../contexts/Web3Context';
 
 
-function SendWave({to}) {
+function SendWave({ to }) {
   const [show, setShow] = useState(false);
   const [msg, setMsg] = useState('');
 
@@ -24,16 +24,16 @@ function SendWave({to}) {
     alert('Send to blockchain successfully!');
     setShow(false);
   }
-  
-  const {walletAddress,ensName,connectWallet,executeContract} = useWeb3();
+
+  const { walletAddress, ensName, connectWallet, executeContract } = useWeb3();
   const from = ensName || walletAddress || "Please Connect Your Wallet!";
-  const handleAnonyClose = () => {setShow(false);connectWallet();};
+  const handleAnonyClose = () => { setShow(false); connectWallet(); };
 
   return (
     <>
       <a href='#' onClick={handleShow}><p className='fw-bold'><FaFacebookMessenger className='me-2' />
-          Send a wave by Blockchain</p></a>
-     
+        Send a wave by Blockchain</p></a>
+
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -63,7 +63,7 @@ function SendWave({to}) {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={walletAddress? wave : handleAnonyClose}>
+          <Button variant="primary" onClick={walletAddress ? wave : handleAnonyClose}>
             Send a Wave
           </Button>
         </Modal.Footer>
