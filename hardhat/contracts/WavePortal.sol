@@ -221,7 +221,7 @@ contract WavePortal {
         waveMap[_toLower(_to)].push(
             Wave(msg.sender, _message, block.timestamp)
         );
-        emit NewWave(msg.sender, block.timestamp, _message);
+        //emit NewWave(msg.sender, block.timestamp, _message);
         seed = (block.difficulty + block.timestamp + seed) % 100;
         uint256 prizeAmount = 0.00001 ether;
         console.log('[smart contract]balance:',address(this).balance);
