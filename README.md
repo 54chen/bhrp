@@ -1,5 +1,5 @@
 BLOCKCHAIN HOUSING RENTAL SYSTEM
---------------------------------
+========================
 
 BHRS
 
@@ -9,10 +9,10 @@ JUL 31 2022
 
 
 How to start the project locally?
----------------------------------
+========================
 
 Generate the databse
-====================
+--------
 
 Generate a file named .env in the root directory ensure the content incude as below:
 
@@ -26,7 +26,7 @@ SHADOW_DATABASE_URL="mysql://xxxx:xxxx@xxx.xxx.us-east-1.rds.amazonaws.com:3306/
 This is the file which Prisma will operate it generate database and tables by it.
 
 DB config & others
-==================
+------
 
 Generate .env.local file including the content as below:
 
@@ -40,10 +40,10 @@ DATABASE_URL="mysql://xx:xx@xx.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/xx"
 ```
 
 How to generate new smart contracts?
--------------------------------------
+====================================
 
 Install the Hardhat (Solidity development environment)
-===
+----
 
 ```shell
 
@@ -60,7 +60,7 @@ npx hardhat test
 If there is no any error after above steps, the environment works.
 
 Run Solidity locally
-====================
+---
 
 ```shell
 
@@ -70,7 +70,7 @@ npx hardhat run scripts/run.js
 
 
 Deploy to remote public chain (goerli)
-======================================
+----
 
 ```shell
 
