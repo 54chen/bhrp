@@ -85,5 +85,5 @@ How to deploy to Vercel?
 
 1. Login in https://vercel.com/ with any account.
 2. Generate a project.
-3. Config Github url as Next.js project.
-4. Commit source codes to Github repo.
+3. Config the Github url as Next.js project.
+4. Commit source codes to the Github repo.
