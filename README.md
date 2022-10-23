@@ -6,12 +6,13 @@ BHRS
 John
 
 JUL 31 2022
+---
 
---
+How to start the project locally?
+---------------------------------
 
-==How to start the project locally?==
-
-===Generate the databse===
+Generate the databse
+====================
 
 Generate a file named .env in the root directory ensure the content incude as below:
 
@@ -24,7 +25,8 @@ SHADOW_DATABASE_URL="mysql://xxxx:xxxx@xxx.xxx.us-east-1.rds.amazonaws.com:3306/
 
 This is the file which Prisma will operate it generate database and tables by it.
 
-===DB config & others===
+DB config & others
+==================
 
 Generate .env.local file including the content as below:
 
