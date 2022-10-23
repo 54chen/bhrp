@@ -6,7 +6,7 @@ BHRS
 John
 
 JUL 31 2022
----
+
 
 How to start the project locally?
 ---------------------------------
@@ -38,3 +38,44 @@ BUCKET_NAME=xxx-xxx-xxx # this is AWS S3
 DATABASE_URL="mysql://xx:xx@xx.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/xx"  # this is for the db 
 
 ```
+
+How to generate new smart contracts?
+-------------------------------------
+
+Install the Hardhat (Solidity development environment)
+===
+
+```shell
+
+npm install --save-dev hardhat@latest
+
+npx hardhat
+
+npx hardhat compile
+
+npx hardhat test
+
+```
+
+If there is no any error after above steps, the environment works.
+
+Run Solidity locally
+====================
+
+```shell
+
+npx hardhat run scripts/run.js
+
+```
+
+
+Deploy to remote public chain (goerli)
+======================================
+
+```shell
+
+npx hardhat run scripts/deploy.js --network goerli
+
+```
+
+The result will give the new address of the smart contracts. Then the address needs to be modified in the web3.js.
